@@ -1,0 +1,2 @@
+org.springframework.boot.autoconfigure.EnableAutoConfiguration=\
+com.openapp.starter.config.OpenAppStarterConfiguration

@@ -1,6 +1,6 @@
 package com.openapp.starter.config;
 
-import static com.openapp.starter.config.OpenAppConfigParams.URI;
+import static com.openapp.starter.config.OpenAppConfigParams.*;
 
 
 import org.springframework.beans.factory.annotation.Autowired;
@@ -26,7 +26,7 @@ public class OpenAppStarterConfiguration {
 	}
 
 	
-    @Autowired
+    @Autowired 
     private OpenAppStarterConfigProperties openAppStarterConfigProperties;
  
     @Bean
@@ -35,10 +35,19 @@ public class OpenAppStarterConfiguration {
  
 
 
-                String uri = openAppStarterConfigProperties.getUri() == null ? "http://127.0.0.1:8888" : openAppStarterConfigProperties.getUri();
-
+                String uri = openAppStarterConfigProperties.getUri() == null ? "http://localhost:8888/foo/development" : openAppStarterConfigProperties.getUri();
+                String consulHost = openAppStarterConfigProperties.getConsulHost() == null ? "localhost" : openAppStarterConfigProperties.getConsulHost();
+                
+                String consulPort = openAppStarterConfigProperties.getConsulPort() == null ? "8500" : openAppStarterConfigProperties.getConsulPort();
+                String consulDiscoveryHealthCheckPath = openAppStarterConfigProperties.getConsulDiscoveryHealthCheckPath() == null ?
+                		"/actuator/health" : openAppStarterConfigProperties.getConsulDiscoveryHealthCheckPath();
+                String consulDiscoveryHealthCheckInterval  = openAppStarterConfigProperties.getConsulDiscoveryHealthCheckInterval() == null?
+                		"15s" : openAppStarterConfigProperties.getConsulDiscoveryHealthCheckInterval();
                 OpenAppConfig openAppConfig = new OpenAppConfig();
                 openAppConfig.put(URI, uri);
+                openAppConfig.put(CONSUL_HOST, consulHost);
+                openAppConfig.put(CONSUL_PORT, consulPort);
+                openAppConfig.put(CONSUL_DISCOVERY_HEALTHCHECKPATH, consulDiscoveryHealthCheckPath);
         		
         		
         // ...
